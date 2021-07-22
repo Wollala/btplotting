@@ -584,7 +584,13 @@ class BacktraderPlotting(metaclass=bt.MetaParams):
             model = self.generate_model(figid)
 
             if self.p.output_mode in ['show', 'save']:
-                if self.is_iplot():
+
+                # for moulde check
+                import importlib
+                display = importlib.find_loader('display')
+                show = importlib.find_loader('show')
+
+                if self.is_iplot() and display and show:
                     css = self._output_stylesheet()
                     display(HTML(css))
                     show(model)
