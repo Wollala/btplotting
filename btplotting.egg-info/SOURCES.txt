@@ -46,6 +46,7 @@ btplotting/schemes/__init__.py
 btplotting/schemes/blackly.py
 btplotting/schemes/scheme.py
 btplotting/schemes/tradimo.py
+btplotting/schemes/wollala.py
 btplotting/tabs/__init__.py
 btplotting/tabs/analyzer.py
 btplotting/tabs/config.py
