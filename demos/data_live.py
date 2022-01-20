@@ -9,9 +9,9 @@ import logging
 import backtrader as bt
 
 from btplotting import BacktraderPlottingLive
-from btplotting.schemes import Blackly
 from btplotting.analyzers import RecorderAnalyzer
 from btplotting.feeds import FakeFeed
+from btplotting.schemes import Blackly
 
 _logger = logging.getLogger(__name__)
 
@@ -41,7 +41,8 @@ class LiveDemoStrategy(bt.Strategy):
 
 
 def _get_trading_calendar(open_hour, close_hour, close_minute):
-    cal = bt.TradingCalendar(open=datetime.time(hour=open_hour), close=datetime.time(hour=close_hour, minute=close_minute))
+    cal = bt.TradingCalendar(open=datetime.time(hour=open_hour),
+                             close=datetime.time(hour=close_hour, minute=close_minute))
     return cal
 
 

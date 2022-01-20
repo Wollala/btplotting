@@ -199,7 +199,7 @@ class Figure(CDSObject):
     https://www.backtrader.com/docu/plotting/plotting/
     '''
 
-    _tools = 'pan,wheel_zoom,box_zoom,reset'
+    _tools = 'pan, xwheel_zoom, yzoom_in, yzoom_out, box_zoom, undo, redo, reset, save'
 
     _style_mpl2bokeh = {
         '-': 'solid',
@@ -275,7 +275,8 @@ class Figure(CDSObject):
             tools=Figure._tools,
             x_axis_type='linear',
             output_backend=self._scheme.output_backend,
-            aspect_ratio=aspectratio)
+            aspect_ratio=aspectratio
+        )
 
         f.y_range.range_padding = self._scheme.y_range_padding
         # remove any spacing if there is no title, so there is no spacing
@@ -345,6 +346,9 @@ class Figure(CDSObject):
             args=dict(source=self.cds, hover=h), code=hover_code)
         h.callback = callback
         f.tools.append(h)
+
+        f.x_range.bounds = 'auto'
+
         self._hover = h
 
         # set figure

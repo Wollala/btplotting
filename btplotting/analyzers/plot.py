@@ -22,7 +22,7 @@ class LivePlotAnalyzer(bt.Analyzer):
         ('style', 'bar'),
         ('lookback', 23),
         ('address', 'localhost'),
-        ('port', 80),
+        ('port', 8080),
         ('title', None),
     )
 
