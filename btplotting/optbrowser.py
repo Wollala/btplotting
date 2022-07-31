@@ -18,13 +18,16 @@ from .webapp import Webapp
 class OptBrowser:
     def __init__(self, app, optresults, usercolumns=None,
                  num_result_limit=None, sortcolumn=None,
-                 sortasc=True, port=8080, autostart=False):
+                 sortasc=True, address='localhost', port=80,
+                 autostart=False):
+>>>>>>> 984c4d358f5487ce7dcce2bb7e7170218934e28f
         self._usercolumns = {} if usercolumns is None else usercolumns
         self._num_result_limit = num_result_limit
         self._app = app
         self._sortcolumn = sortcolumn
         self._sortasc = sortasc
         self._optresults = optresults
+        self._address = address
         self._port = port
         self._autostart = autostart
 
@@ -34,6 +37,7 @@ class OptBrowser:
             'basic.html.j2',
             self._app.params.scheme,
             self.build_optresult_model,
+            address=self._address,
             port=self._port,
             autostart=self._autostart)
         webapp.start(ioloop)
