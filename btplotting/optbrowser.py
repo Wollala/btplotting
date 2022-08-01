@@ -20,7 +20,6 @@ class OptBrowser:
                  num_result_limit=None, sortcolumn=None,
                  sortasc=True, address='localhost', port=80,
                  autostart=False):
->>>>>>> 984c4d358f5487ce7dcce2bb7e7170218934e28f
         self._usercolumns = {} if usercolumns is None else usercolumns
         self._num_result_limit = num_result_limit
         self._app = app
