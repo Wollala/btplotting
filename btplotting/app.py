@@ -320,6 +320,7 @@ class BacktraderPlotting(metaclass=bt.MetaParams):
             if filldata:
                 df = self.generate_data(figid, start=start, end=end)
                 fp.set_cds_columns_from_df(df)
+                fp.set_auto_scale(df)
         elif isinstance(obj, bt.OptReturn):
             self._blueprint_optreturn(figid)
         else:

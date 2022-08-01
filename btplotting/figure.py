@@ -6,6 +6,7 @@ from functools import partial
 from enum import Enum
 
 import backtrader as bt
+import pandas as pd
 
 from bokeh.models import Span
 from bokeh.plotting import figure
@@ -164,6 +165,28 @@ class FigurePage(CDSObject):
         for f in self.figures:
             f.set_cds_columns_from_df(df)
 
+    def set_auto_scale(self, df):
+        from bokeh.models import ColumnDataSource
+
+        auto_scale_code = pkgutil.get_data(
+            __name__,
+            'templates/js/auto_scale.js').decode()
+
+        new_df = pd.DataFrame()
+        new_df['high'] = df.filter(regex='high')
+        new_df['low'] = df.filter(regex='low')
+        new_df['date'] = df['datetime']
+        new_df['date'] = pd.to_datetime(new_df['date'])
+
+        source = ColumnDataSource(
+            {'date': new_df['date'], 'high': new_df['high'], 'low': new_df['low']})
+
+        for f in self.figures:
+            if f.get_type() is FigureType.DATA:
+                callback_auto_scale = CustomJS(args={'y_range': f.figure.y_range, 'source': source},
+                                               code=auto_scale_code)
+                f.figure.x_range.js_on_change('start', callback_auto_scale)
+
     def apply(self):
         '''
         Apply additional configuration after all figures are set
@@ -199,7 +222,7 @@ class Figure(CDSObject):
     https://www.backtrader.com/docu/plotting/plotting/
     '''
 
-    _tools = 'pan, xwheel_zoom, yzoom_in, yzoom_out, box_zoom, undo, redo, reset, save'
+    _tools = 'xpan, xwheel_zoom, reset, crosshair, save'
 
     _style_mpl2bokeh = {
         '-': 'solid',
@@ -272,7 +295,9 @@ class Figure(CDSObject):
 
         f = figure(
             width=1000,
+            sizing_mode='stretch_both',
             tools=Figure._tools,
+            active_drag='xpan',
             x_axis_type='linear',
             output_backend=self._scheme.output_backend,
             aspect_ratio=aspectratio
@@ -346,8 +371,6 @@ class Figure(CDSObject):
             args=dict(source=self.cds, hover=h), code=hover_code)
         h.callback = callback
         f.tools.append(h)
-
-        f.x_range.bounds = 'auto'
 
         self._hover = h
 
