@@ -7,8 +7,8 @@ class Wollala(Blackly):
 
         dark_text = '#333333'
 
-        self.barup = '#d32f2f'
-        self.bardown = '#4a148c'
+        self.barup = '#d9534f'
+        self.bardown = '#428bca'
 
         self.barup_wick = self.barup
         self.bardown_wick = self.bardown
