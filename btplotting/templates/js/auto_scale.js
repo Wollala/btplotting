@@ -7,16 +7,16 @@ let date = source.data.date,
     min = Infinity,
     max = -Infinity;
 
-for (let i=0; i < date.length; ++i) {
-    if (start <= i && i <= end) {
-        max = Math.max(high[i], max);
-        min = Math.min(low[i], min);
-    }
-}
+start = (start >= 0) ? start : 0
+end = (end >= 0) ? end : 0
+
+high = high.slice(start, end)
+low = low.slice(start, end)
+max = Math.max(...high)
+min =  Math.min(...low)
 
 const pad = (max - min) * .05;
 
-console.log("min: ", min, "max: ", max, "pad", pad)
 window._autoscale_timeout = setTimeout(function() {
     y_range.start = min - pad;
     y_range.end = max + pad;

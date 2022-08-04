@@ -227,8 +227,8 @@ class Scheme(PlotScheme):
         self.obs_aspectratio = 5.0
         self.ind_aspectratio = 5.0
         # output backend mode ("canvas", "svg", "webgl")
-        self.output_backend = 'canvas'
-
+        self.output_backend = 'webgl'
+        
         self.toolbar_location = 'right'
 
         self.tooltip_background_color = '#4C4F51'
